@@ -1,4 +1,3 @@
-/* Change these values based on your calibration values */
 #define soilWet 500   // Define max value we consider soil 'wet'
 #define soilDry 750   // Define min value we consider soil 'dry'
 
@@ -9,7 +8,7 @@
 
 void setup() {
 	pinMode(sensorPower, OUTPUT);
-    pinMode(relayPin, OUTPUT);
+  pinMode(relayPin, OUTPUT);
 	digitalWrite(sensorPower, HIGH);
 	digitalWrite(relayPin, LOW);
 	Serial.begin(9600);
