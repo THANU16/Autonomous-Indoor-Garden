@@ -10,8 +10,8 @@
 #define relayPin 5
 
 
-const char* ssid = "YOUR_WIFI_SSID";
-const char* password = "YOUR_WIFI_PASSWORD";
+const char* ssid = "realme C21-Y";
+const char* password = "123456789";
 const char* mqttServer = "mqtt://192.168.1.157";
 const int mqttPort = 1883;
 const char* mqttUser = "thanu";
