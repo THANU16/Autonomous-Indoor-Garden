@@ -7,16 +7,14 @@ import MenuBar from "./components/Menubar";
 
 function App() {
   return (
-    <div className="app">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="watersystem" element={<WaterControl />} />
-        </Routes>
-      </BrowserRouter>
-      {/* <Dashboard /> */}
-      <WaterControl />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* <Route path="/" element={<MenuBar />}> */}
+        <Route path="/" element={<Dashboard />} />
+        <Route path="watersystem" element={<WaterControl />} />
+        {/* </Route> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

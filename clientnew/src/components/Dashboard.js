@@ -19,34 +19,39 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="dashboard">
-      <MenuBar setPage={setActivePage} />
-      <div className="content">
-        {activePage === "dashboard" && (
-          <div className="speedometer-container">
-            <div className="speedometer-row">
-              <Speedometer
-                title="Temperature"
-                value={sensorData.temperature}
-                minValue={0}
-                maxValue={50}
-              />
-              <Speedometer
-                title="Moisture"
-                value={sensorData.moistrue}
-                minValue={0}
-                maxValue={1200}
-              />
-              <Speedometer
-                title="pH"
-                value={sensorData.pH}
-                minValue={0}
-                maxValue={15}
-              />
+    <div className="comp-nav">
+      <div>
+        <MenuBar />
+      </div>
+
+      <div className="dashboard">
+        <div className="content">
+          {activePage === "dashboard" && (
+            <div className="speedometer-container">
+              <div className="speedometer-row">
+                <Speedometer
+                  title="Temperature"
+                  value={sensorData.temperature}
+                  minValue={0}
+                  maxValue={50}
+                />
+                <Speedometer
+                  title="Moisture"
+                  value={sensorData.moistrue}
+                  minValue={0}
+                  maxValue={1200}
+                />
+                <Speedometer
+                  title="pH"
+                  value={sensorData.pH}
+                  minValue={0}
+                  maxValue={15}
+                />
+              </div>
             </div>
-          </div>
-        )}
-        {/* Add other content for different pages */}
+          )}
+          {/* Add other content for different pages */}
+        </div>
       </div>
     </div>
   );

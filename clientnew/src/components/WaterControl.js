@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import "../App.css"; // Import the CSS file
+import "../styles/styles.css";
 import Speedometer from "./MySpeedometer";
+import MenuBar from "./Menubar";
 
 const WaterControl = ({ onWaterControl }) => {
   const [waterAmount, setWaterAmount] = useState(20);
@@ -23,19 +24,29 @@ const WaterControl = ({ onWaterControl }) => {
   };
 
   return (
-    <div>
-      <div className="water-control">
-        <h2>Water Control</h2>
-        <div className="water-control-buttons">
-          <button onClick={handleDecrease}>-</button>
-          <span>{waterAmountSet} cups</span>
-          <button onClick={handleIncrease}>+</button>
-        </div>
-        <button onClick={handleControl}>Control Water System</button>
+    <div className="comp-nav">
+      <div>
+        <MenuBar />
       </div>
-      <div className="speedometer-container">
-        <h3 className="speedometer-title">Water Level</h3>
-        <Speedometer title="" value={waterAmount} minValue={0} maxValue={50} />
+      <div className="water-control">
+        <div className="water-control-1">
+          <h2>Water Control</h2>
+          <div className="water-control-buttons">
+            <button onClick={handleDecrease}>-</button>
+            <span>{waterAmountSet} cups</span>
+            <button onClick={handleIncrease}>+</button>
+          </div>
+          <button onClick={handleControl}>Control Water System</button>
+        </div>
+        <div className="speedometer-container">
+          <h3 className="speedometer-title">Water Level</h3>
+          <Speedometer
+            title=""
+            value={waterAmount}
+            minValue={0}
+            maxValue={50}
+          />
+        </div>
       </div>
     </div>
   );
