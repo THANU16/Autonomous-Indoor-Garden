@@ -3,7 +3,6 @@ The proposed solution is an innovative self-sustaining indoor  gardening system 
 
 
 
-
 31 July 2023 => Present the Idea
 
 07 August 2023 => Get the Soil sensor from the department
