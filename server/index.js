@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const { WebSocketServer } = require("ws");
 
 const app = express();
 const port = 5000; // Replace with your desired port
@@ -12,6 +13,51 @@ app.use(cors());
 // Initialize an array to store received data
 const receivedDataArray = [];
 var lastReceivedData = {};
+const clientConnection = new Map();
+
+// Create a function to handle WebSocket connections.
+function handleWebSocketConnections(server) {
+  const wsServer = new WebSocketServer({ server });
+
+  wsServer.on("connection", (socket, req) => {
+    console.log("WebSocket client connected");
+
+    // Extract query parameters from the request URL.
+    const { query } = url.parse(req.url, true);
+    const sessionToken = query.sessionToken;
+    // console.log(sessionToken);
+    const typeID = query.typeID;
+
+    const clientID = decodedUserId(sessionToken);
+
+    // console.log(clientID, typeID, sessionToken);
+
+    // Check if the session token is valid (you should implement your validation logic here).
+    if (clientID) {
+      // console.log(" connected");
+      clientConnection.set(clientID, socket);
+      
+      socket.on("message", (message) => {
+        console.log(`Received message: ${message}`);
+      });
+
+      socket.on("close", () => {
+        console.log("WebSocket client disconnected");
+
+        // Remove the WebSocket connection from the map when the client disconnects.
+        // clientConnection.delete(clientID);
+      });
+    } else {
+      // If the session token is invalid, close the WebSocket connection.
+      console.log("Invalid session token. Closing WebSocket connection.");
+      socket.close();
+    }
+  });
+}
+
+
+
+  
 
 // Define an API route to receive data from the ESP32
 app.post("/data", (req, res) => {
@@ -30,19 +76,10 @@ app.post("/data", (req, res) => {
 // Define a route to retrieve the last stored data
 app.get("/sensorData", (req, res) => {
   res.json(lastReceivedData);
-  // // Check if there is data in the array
-  // if (receivedDataArray.length > 0) {
-  //   // Get the last item (last received data)
-  //   const lastReceivedData = receivedDataArray[receivedDataArray.length - 1];
-  //   receivedDataArray.pop();
-
-  //   // Return the last received data
-  //   res.json(lastReceivedData);
-  // } else {
-  //   // If no data is available, return an empty object or an appropriate response
-  //   res.json({});
-  // }
 });
+
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
