@@ -9,7 +9,7 @@ router.use(express.static("public"));
 
 router.post("/", (req, res) => {
   sensorData = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   // console.log(req);
   // res.setHeader("Content-Type", "text/event-stream");
   // res.setHeader("Cache-Control", "no-cache");

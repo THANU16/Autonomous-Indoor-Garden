@@ -18,11 +18,13 @@
 // Sensor pins
 #define sensorPower 27
 #define sensorPin 34
-#define relayPin 5
+#define relayPin 18
 
-const char* ssid = "realme C21-Y";
-const char* password = "123456789";
-const char* serverName = "http://192.168.219.117:5000/data"; // Replace with your server's address and port
+// const char* ssid = "realme C21-Y";
+// const char* password = "123456789";
+const char* ssid = "SLT-Fiber";
+const char* password = "@Home#321";
+const char* serverName = "http://192.168.1.3:5000/data"; // Replace with your server's address and port
 
 void setup() {
   Serial.begin(115200);
@@ -30,7 +32,7 @@ void setup() {
   pinMode(sensorPower, OUTPUT);
   pinMode(relayPin, OUTPUT);
   digitalWrite(sensorPower, HIGH);
-  digitalWrite(relayPin, LOW);
+  digitalWrite(relayPin, HIGH);
 
   WiFi.begin(ssid, password);
   Serial.println("Connecting");
@@ -49,11 +51,15 @@ void loop() {
   // float temperature = 25.0; // Example temperature value
   // float pH = 6.5; // Example pH value
   Serial.println(moisture);
+  Serial.println(moistureStatus);
 
-  if (moistureStatus == 2) {
-    pumpOn();
+
+  if (moistureStatus == 0) {
+    digitalWrite(relayPin, LOW);
+    delay(200);
   } else {
-    pumpOff();
+    digitalWrite(relayPin, HIGH);
+    delay(20);
   }
 
   // Check WiFi connection status
@@ -64,16 +70,14 @@ void loop() {
     // Your Domain name with URL path or IP address with path
     http.begin(client, serverName);
 
-    // If you need Node-RED/server authentication, insert user and password below
-    //http.setAuthorization("REPLACE_WITH_SERVER_USERNAME", "REPLACE_WITH_SERVER_PASSWORD");
-
     // Specify content-type header
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
     // Data to send with HTTP POST
     String moistureString = String(moisture);
-    String temperatureString = "24.25"; // Example temperature value
-    String pHString = "49.54"; // Example pH value
+    String temperatureString = "24.25"; // i put example temperature value
+    String pHString = "7.8"; // i put example pH value
     String httpRequestData = "moisture=" + moistureString + "&temperature=" + temperatureString + "&pH=" + pHString;
+    Serial.println(httpRequestData);
     // Send HTTP POST request
     int httpResponseCode = http.POST(httpRequestData);
 
@@ -113,10 +117,10 @@ int getMoistureValue(int moisture) {
 
 void pumpOn() {
   Serial.println("pump on");
-  digitalWrite(relayPin, HIGH);
+  digitalWrite(relayPin, LOW);
 }
 
 void pumpOff() {
   Serial.println("pump off");
-  digitalWrite(relayPin, LOW);
+  digitalWrite(relayPin, HIGH);
 }

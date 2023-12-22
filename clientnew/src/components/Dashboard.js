@@ -16,7 +16,7 @@ function Dashboard() {
       .catch((error) => {
         console.log("Error fetching creditSale data:", error);
       });
-  }, []);
+  });
 
   return (
     <div className="comp-nav">
@@ -37,9 +37,9 @@ function Dashboard() {
                 />
                 <Speedometer
                   title="Moisture"
-                  value={sensorData.moistrue}
+                  value={sensorData.moisture}
                   minValue={0}
-                  maxValue={1200}
+                  maxValue={6000}
                 />
                 <Speedometer
                   title="pH"

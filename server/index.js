@@ -36,7 +36,7 @@ function handleWebSocketConnections(server) {
     if (clientID) {
       // console.log(" connected");
       clientConnection.set(clientID, socket);
-      
+
       socket.on("message", (message) => {
         console.log(`Received message: ${message}`);
       });
@@ -55,20 +55,14 @@ function handleWebSocketConnections(server) {
   });
 }
 
-
-
-  
-
 // Define an API route to receive data from the ESP32
 app.post("/data", (req, res) => {
-  console.log("Received POST request to /data");
-  console.log("Request body:", req.body);
+  // console.log("Received POST request to /data");
+  // console.log("Request body:", req.body);
 
   const receivedData = req.body;
-
-  // Process or store the received data in the array
-  receivedDataArray.push(receivedData);
   lastReceivedData = receivedData;
+  // console.log("inside", lastReceivedData);
   // Send a response (optional)
   res.status(200).send("Data received successfully");
 });
@@ -77,9 +71,6 @@ app.post("/data", (req, res) => {
 app.get("/sensorData", (req, res) => {
   res.json(lastReceivedData);
 });
-
-
-
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
