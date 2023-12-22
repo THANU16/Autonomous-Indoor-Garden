@@ -40,6 +40,11 @@ The proposed solution is an innovative self-sustaining indoor  gardening system 
                     now I plan to implement the temperature
 
 
+28 October 2023 => I was crate emergency circuit breaker when the power failure occurs
+                    that means automatically switching the power.
+                    I use a relay switch and clock
+                   
+
 
 
 
